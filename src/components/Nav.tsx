@@ -18,13 +18,13 @@ const Nav = () => {
           <Link href='/tasks'>Tasks</Link>
         </div>
         <div className='lg:flex-1'>
-          <Link href='/tasks'>Personal Notes</Link>
+          <Link href='/personal-notes'>Personal Notes</Link>
         </div>
         <div className='lg:flex-1'>
-          <Link href='/tasks'>Alarms</Link>
+          <Link href='/alarms'>Alarms</Link>
         </div>
         <div className='lg:flex-1'>
-          <Link href='/tasks'>Timer</Link>
+          <Link href='/timer'>Timer</Link>
         </div>
         {
           isLoaded && user && (

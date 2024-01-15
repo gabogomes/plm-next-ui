@@ -11,7 +11,7 @@ const Home = () => {
   return (
     <main className="">
       <h1>
-        Next.js Auth Tutorial
+        Personal Life Manager
       </h1>
     </main>
   )

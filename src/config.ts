@@ -1,0 +1,1 @@
+export const plmApiUrl: string = `http://${process.env.PLM_API_HOSTNAME as string}`
