@@ -5,8 +5,8 @@ import styled from 'styled-components'
 import { TimerBoxProps } from '@/types'
 
 const TimerWrapper = styled.div`
-  margin-top: 30vh;
-  width: 600px;
+  margin-top: 10vh;
+  width: 700px;
   margin-left: auto;
   margin-right: auto;
   background-color: #222;
@@ -55,19 +55,19 @@ const TimerBox: React.FC<TimerBoxProps> = ({
     <TimerWrapper>
       <BsStopwatch className="stop-watch" />
       <div className="d-flex flex-column">
-        <label>hh</label>
+        <label>Hours</label>
         <input type="text" value={hours} onChange={changeHours} />
       </div>
       <div className="d-flex flex-column">
-        <label>mm</label>
+        <label>Minutes</label>
         <input type="text" value={minutes} onChange={changeMinutes} />
       </div>
       <div className="d-flex flex-column">
-        <label>ss</label>
+        <label>Seconds</label>
         <input type="text" value={seconds} onChange={changeSeconds} />
       </div>
       <div className="d-flex flex-column">
-        <label>ms</label>
+        <label>Milliseconds</label>
         <input type="text" value={milliseconds} readOnly />
       </div>
     </TimerWrapper>

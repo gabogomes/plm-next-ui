@@ -73,15 +73,18 @@ const CountdownTimer = () => {
   }
 
   const changeSeconds = (e: TimerEventChange) => {
-    setSeconds(parseInt(e.target.value, 10))
+    const parsedSeconds = parseInt(e.target.value, 10)
+    setSeconds(isNaN(parsedSeconds) ? 0: parsedSeconds)
   }
 
   const changeMinutes = (e: TimerEventChange) => {
-    setMinutes(parseInt(e.target.value, 10))
+    const parsedMinutes = parseInt(e.target.value, 10)
+    setMinutes(isNaN(parsedMinutes) ? 0 : parsedMinutes)
   }
 
   const changeHours = (e: TimerEventChange) => {
-    setHours(parseInt(e.target.value, 10))
+    const parsedHours = parseInt(e.target.value, 10)
+    setHours(isNaN(parsedHours) ? 0 : parsedHours)
   }
 
   return (
