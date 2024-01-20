@@ -36,7 +36,7 @@ const TaskCreationModal = ({ closeModal }: ModalProps) => {
             type="text"
             value={taskName}
             onChange={(e) => setTaskName(e.target.value)}
-            placeholder="Task Name"
+            placeholder="New Task"
           />
         </div>
         <div className={styles.formField}>

@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 import LoadingOverlay from 'react-loading-overlay-ts'
-import { SWRResponse } from 'swr'
+import { mutate, SWRResponse } from 'swr'
 
 import TaskCreationModal from '@/components/tasks/TaskCreationModal' // Import your modal component here
 import useSwr from '@/utils/swr'
@@ -22,6 +22,7 @@ const TasksPage = () => {
 
   const closeModal = () => {
     setIsModalOpen(false)
+    mutate(`/api/tasks/${userId}`)
   }
 
   if (!isLoaded || !userId) {
