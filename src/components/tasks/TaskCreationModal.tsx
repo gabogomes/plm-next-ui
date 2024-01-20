@@ -23,6 +23,7 @@ const TaskCreationModal = ({ closeModal }: ModalProps) => {
       }
     }    
     await axios.post('/api/tasks', payload)
+    closeModal()
   }
 
   return (
