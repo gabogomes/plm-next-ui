@@ -1,22 +1,29 @@
 'use client'
+import axios from 'axios'
 import { useState } from 'react'
 
 import styles from '../../../styles/TasksPage.module.css'
 
-type ModalProps = {
-  closeModal: () => void;
-};
+interface ModalProps {
+  closeModal: () => void
+}
 
-const Modal = ({ closeModal }: ModalProps) => {
-  const [taskName, setTaskName] = useState('');
-  const [taskStatus, setTaskStatus] = useState('');
-  const [taskType, setTaskType] = useState('');
+const TaskCreationModal = ({ closeModal }: ModalProps) => {
+  const [taskName, setTaskName] = useState('New Task')
+  const [taskStatus, setTaskStatus] = useState('To Do')
+  const [taskType, setTaskType] = useState('Work')
 
-  const handleTaskSubmit = () => {
-    // Handle task submission logic here
-    // You can use `taskName`, `taskStatus`, `taskType` to create a new task
-    // Once the task is created, you can close the modal using `closeModal`
-  };
+
+  const handleTaskSubmit = async () => {
+    const payload = {
+      body: {
+        name: taskName,
+        status: taskStatus,
+        type: taskType
+      }
+    }    
+    await axios.post('/api/tasks', payload)
+  }
 
   return (
     <div className={styles.modalOverlay}>
@@ -68,7 +75,7 @@ const Modal = ({ closeModal }: ModalProps) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Modal;
+export default TaskCreationModal

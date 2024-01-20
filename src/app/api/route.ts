@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 
 import { auth } from '@clerk/nextjs'
 
-export async function GET() {
+export const GET = async (request: Request, context:any) => {
   const {userId} = auth()
  
   if(!userId){
