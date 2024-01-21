@@ -5,7 +5,7 @@ import { plmApiUrl } from '@/config'
 import { auth, currentUser } from '@clerk/nextjs'
 
 export const POST = async (request: Request) => {
-    
+
   const { userId } = auth()
   const { body } = await request.json()
   const user = await currentUser()
@@ -18,4 +18,14 @@ export const POST = async (request: Request) => {
  
   const response = await axios.post(`${plmApiUrl}/v1/tasks`, updatedBody)
   return NextResponse.json(response.data)
+}
+
+export const GET = async () => {
+
+  const { userId } = auth()
+
+  const results = await axios.get(`${plmApiUrl}/v1/tasks/${userId as string}`)
+  
+  return NextResponse.json(results.data)
+
 }

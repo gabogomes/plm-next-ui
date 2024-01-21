@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import LoadingOverlay from 'react-loading-overlay-ts'
-import { mutate, SWRResponse } from 'swr'
+import { SWRResponse } from 'swr'
 
 import TaskCreationModal from '@/components/tasks/TaskCreationModal' // Import your modal component here
 import { ITasksResponse } from '@/types'
@@ -11,10 +11,10 @@ import { useAuth } from '@clerk/nextjs'
 
 import styles from '../../../styles/TasksPage.module.css' // Import CSS module styles
 
-const TasksPage = () => {
+const Page = () => {
   const { isLoaded, userId, sessionId } = useAuth()
-  const { data: taskData, error: taskError, isLoading: taskIsLoading } =
-    useSwr(`/api/tasks/${userId}`) as SWRResponse<any, any, boolean>
+  const { data: taskData, error: taskError, isLoading: taskIsLoading, mutate } =
+    useSwr(`/api/tasks`) as SWRResponse<any, any, boolean>
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -22,9 +22,9 @@ const TasksPage = () => {
     setIsModalOpen(true)
   }
 
-  const closeModal = () => {
+  const closeModal = async() => {
     setIsModalOpen(false)
-    mutate(`/api/tasks/${userId}`)
+    mutate()
   }
 
   if (!isLoaded || !userId) {
@@ -39,12 +39,14 @@ const TasksPage = () => {
       <LoadingOverlay className="h-100" active={taskIsLoading}>
         <table className={styles.tableContainer}>
           <thead>
-            <tr>
-              <th className={styles.tableHeader}>Name</th>
-              <th className={styles.tableHeader}>Type</th>
-              <th className={styles.tableHeader}>Status</th>
-              <th className={styles.tableHeader}>Correspondence Email</th>
-            </tr>
+            {taskData.items.length == 0 ? 'Create new Tasks using the Add Task button' :
+              <tr>
+                <th className={styles.tableHeader}>Name</th>
+                <th className={styles.tableHeader}>Type</th>
+                <th className={styles.tableHeader}>Status</th>
+                <th className={styles.tableHeader}>Correspondence Email</th>
+              </tr>
+            }            
           </thead>
           <tbody>
             {!taskIsLoading &&
@@ -69,4 +71,4 @@ const TasksPage = () => {
   )
 }
 
-export default TasksPage
+export default Page
