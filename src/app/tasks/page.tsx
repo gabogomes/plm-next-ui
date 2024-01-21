@@ -1,9 +1,9 @@
 'use client'
 import Link from 'next/link'
 import { useState } from 'react'
-import LoadingOverlay from 'react-loading-overlay-ts'
 import { SWRResponse } from 'swr'
 
+import SpinUntilLoaded from '@/components/SpinUntilLoaded'
 import TaskCreationModal from '@/components/tasks/TaskCreationModal'
 import { ITasksResponse } from '@/types'
 import useSwr from '@/utils/swr'
@@ -36,7 +36,7 @@ const Page = () => {
       <button className={styles.addTaskButton} onClick={openModal}>
         Add Task
       </button>
-      <LoadingOverlay className="h-100" active={taskIsLoading}>
+      <SpinUntilLoaded isLoading={taskIsLoading}>
         <table className={styles.tableContainer}>
           <thead>
             {taskData.items.length == 0 ? 'Create new Tasks using the Add Task button' :
@@ -64,7 +64,7 @@ const Page = () => {
             ))}
           </tbody>
         </table>
-      </LoadingOverlay>
+      </SpinUntilLoaded>
   
       {isModalOpen && <TaskCreationModal closeModal={closeModal} />}
     </div>
