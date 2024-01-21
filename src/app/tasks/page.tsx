@@ -4,16 +4,16 @@ import { useState } from 'react'
 import LoadingOverlay from 'react-loading-overlay-ts'
 import { SWRResponse } from 'swr'
 
-import TaskCreationModal from '@/components/tasks/TaskCreationModal' // Import your modal component here
+import TaskCreationModal from '@/components/tasks/TaskCreationModal'
 import { ITasksResponse } from '@/types'
 import useSwr from '@/utils/swr'
 import { useAuth } from '@clerk/nextjs'
 
-import styles from '../../../styles/TasksPage.module.css' // Import CSS module styles
+import styles from '../../../styles/TasksPage.module.css'
 
 const Page = () => {
   const { isLoaded, userId, sessionId } = useAuth()
-  const { data: taskData, error: taskError, isLoading: taskIsLoading, mutate } =
+  const { data: taskData = { items: [], total: 0, limit: 0, offset: 0 }, error: taskError, isLoading: taskIsLoading, mutate } =
     useSwr(`/api/tasks`) as SWRResponse<any, any, boolean>
 
   const [isModalOpen, setIsModalOpen] = useState(false)
