@@ -13,7 +13,7 @@ import styles from '../../../styles/TasksPage.module.css'
 
 const Page = () => {
   const { isLoaded, userId, sessionId } = useAuth()
-  const { data: taskData = { items: [], total: 0, limit: 0, offset: 0 }, error: taskError, isLoading: taskIsLoading, mutate } =
+  const { data: taskData = { items: [] }, error: taskError, isLoading: taskIsLoading, mutate } =
     useSwr(`/api/tasks`) as SWRResponse<any, any, boolean>
 
   const [isModalOpen, setIsModalOpen] = useState(false)
