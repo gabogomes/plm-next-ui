@@ -2,18 +2,20 @@
 import axios from 'axios'
 import { useState } from 'react'
 
-import { ITaskRootProperties } from '@/types'
+import { ITaskRootProperties, ITasksResponse } from '@/types'
 
 import styles from '../../../styles/TasksPage.module.css'
 
 interface ModalProps {
   closeModal: () => void
+  taskId: number
+  taskData: ITasksResponse
 }
 
-const TaskCreationModal = ({ closeModal }: ModalProps) => {
-  const [taskName, setTaskName] = useState('New Task')
-  const [taskStatus, setTaskStatus] = useState('To Do')
-  const [taskType, setTaskType] = useState('Work')
+const TaskUpdateModal = ({ closeModal, taskId, taskData }: ModalProps) => {
+  const [taskName, setTaskName] = useState(taskData.name)
+  const [taskStatus, setTaskStatus] = useState(taskData.status)
+  const [taskType, setTaskType] = useState(taskData.type)
 
 
   const handleTaskSubmit = async () => {
@@ -24,14 +26,14 @@ const TaskCreationModal = ({ closeModal }: ModalProps) => {
         type: taskType
       }
     }    
-    await axios.post('/api/tasks', payload)
+    await axios.patch(`/api/tasks/${taskId as number}`, payload)
     closeModal()
   }
 
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
-        <h1 className={styles.modalTitle}>Create New Task</h1>
+        <h1 className={styles.modalTitle}>Edit Task</h1>
         <div className={styles.formField}>
           <label htmlFor="taskName">Task Name</label>
           <input
@@ -81,4 +83,4 @@ const TaskCreationModal = ({ closeModal }: ModalProps) => {
   )
 }
 
-export default TaskCreationModal
+export default TaskUpdateModal

@@ -16,15 +16,3 @@ export interface EndScreen {
 export interface TimerEventChange extends React.ChangeEvent<HTMLInputElement> {
   target: HTMLInputElement
 }
-
-export interface ITasksResponse {
-  id?: number
-  name: string  
-  status: string
-  type: string
-  correspondenceEmailAddress: string
-  createdBy: string
-  createdOn: string
-  modifiedBy?: string
-  modifiedOn?: string
-}

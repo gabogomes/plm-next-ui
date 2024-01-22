@@ -10,7 +10,33 @@
   top: 120px;
   right: 50px;
 }
-  
+
+.editTaskButton {
+  background-color: yellow;
+  color: black;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  position: absolute;
+  top: 120px;
+  right: 50px;
+}
+
+.deleteTaskButton {
+  background-color: red;
+  color: black;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  position: absolute;
+  top: 120px;
+  right: 130px;
+}
+
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -113,4 +139,19 @@
 
 .tableCell:nth-child(4) {
   width: 25%;
+}
+
+.tableCellSingleTask {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid black;
+  vertical-align: middle;
+}
+
+.tableCellSingleTask:first-child {
+  width: 50%;
+}
+
+.tableCellSingleTask:nth-child(2) {
+  width: 50%;
 }
