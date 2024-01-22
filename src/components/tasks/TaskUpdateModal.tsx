@@ -16,6 +16,7 @@ const TaskUpdateModal = ({ closeModal, taskId, taskData }: ModalProps) => {
   const [taskName, setTaskName] = useState(taskData.name)
   const [taskStatus, setTaskStatus] = useState(taskData.status)
   const [taskType, setTaskType] = useState(taskData.type)
+  const [errorMessage, setErrorMessage] = useState("")
 
 
   const handleTaskSubmit = async () => {
@@ -25,15 +26,24 @@ const TaskUpdateModal = ({ closeModal, taskId, taskData }: ModalProps) => {
         status: taskStatus,
         type: taskType
       }
-    }    
-    await axios.patch(`/api/tasks/${taskId as number}`, payload)
-    closeModal()
+    }
+
+    try {
+      await axios.patch(`/api/tasks/${taskId as number}`, payload)
+      closeModal()
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const { response } = error
+        setErrorMessage(response?.data)
+      }
+    }
   }
 
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
         <h1 className={styles.modalTitle}>Edit Task</h1>
+        {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p> }
         <div className={styles.formField}>
           <label htmlFor="taskName">Task Name</label>
           <input

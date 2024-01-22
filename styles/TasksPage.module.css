@@ -155,3 +155,9 @@
 .tableCellSingleTask:nth-child(2) {
   width: 50%;
 }
+
+.errorMessage {
+  color: red;
+  font-weight: bold;
+  margin-bottom: 10px;
+}

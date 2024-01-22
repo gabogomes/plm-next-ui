@@ -5,19 +5,34 @@ import { plmApiUrl } from '@/config'
 import { auth, currentUser } from '@clerk/nextjs'
 
 export const POST = async (request: Request) => {
+  try {
+    const { userId } = auth()
+    const { body } = await request.json()
+    const user = await currentUser()
+    const correspondenceEmailAddress = user?.emailAddresses[0].emailAddress
+    const updatedBody = { ...body, correspondenceEmailAddress, userId }
 
-  const { userId } = auth()
-  const { body } = await request.json()
-  const user = await currentUser()
-  const correspondenceEmailAddress = user?.emailAddresses[0].emailAddress
-  const updatedBody = { ...body, correspondenceEmailAddress, userId }
- 
-  if(!userId){
-    return new Response("Unauthorized", { status: 401 })
+    if (!userId) {
+      return new Response('Unauthorized', { status: 401 })
+    }
+
+    const response = await axios.post(`${plmApiUrl}/v1/tasks`, updatedBody)
+    return NextResponse.json(response.data)
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const { response } = error
+      if (response) {
+        const errorMessage = response.data.detail[0].message
+
+        return new Response(errorMessage, {
+          status: response.status,
+          headers: { 'Content-Type': 'application/json' },
+        })
+      }
+    }
+
+    throw error
   }
- 
-  const response = await axios.post(`${plmApiUrl}/v1/tasks`, updatedBody)
-  return NextResponse.json(response.data)
 }
 
 export const GET = async () => {

@@ -14,6 +14,7 @@ const TaskCreationModal = ({ closeModal }: ModalProps) => {
   const [taskName, setTaskName] = useState('New Task')
   const [taskStatus, setTaskStatus] = useState('To Do')
   const [taskType, setTaskType] = useState('Work')
+  const [errorMessage, setErrorMessage] = useState("")
 
 
   const handleTaskSubmit = async () => {
@@ -21,17 +22,26 @@ const TaskCreationModal = ({ closeModal }: ModalProps) => {
       body: {
         name: taskName,
         status: taskStatus,
-        type: taskType
+        type: taskType,
+      },
+    }
+    
+    try {
+      await axios.post('/api/tasks', payload)
+      closeModal()
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const { response } = error
+        setErrorMessage(response?.data)
       }
-    }    
-    await axios.post('/api/tasks', payload)
-    closeModal()
+    }
   }
 
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>
         <h1 className={styles.modalTitle}>Create New Task</h1>
+        {errorMessage && <p className={styles.errorMessage}>{errorMessage}</p> }
         <div className={styles.formField}>
           <label htmlFor="taskName">Task Name</label>
           <input
