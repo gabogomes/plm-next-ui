@@ -11,6 +11,19 @@
   right: 50px;
 }
 
+.addPersonalNoteButton {
+  background-color: blue;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  position: absolute;
+  top: 600px;
+  right: 50px;
+}
+
 .editTaskButton {
   background-color: yellow;
   color: black;
@@ -63,6 +76,13 @@
   margin-bottom: 16px;
 }
 
+.formFieldTextDisplay {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+  height: 5em;
+}
+
 .label {
   font-weight: bold;
   margin-bottom: 8px;
@@ -111,6 +131,13 @@
   border-collapse: collapse;
 }
 
+.tableContainerForPersonalNotes {
+  width: 1400px;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .tableHeader {
   text-align: center;
   border: 1px solid black;
@@ -122,6 +149,29 @@
   text-align: center;
   border: 1px solid black;
   vertical-align: middle;
+}
+
+.tableCellForPersonalNote {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid black;
+  vertical-align: middle;
+}
+
+.tableCellForPersonalNote:first-child {
+  width: 20%;
+}
+
+.tableCellForPersonalNote:nth-child(2) {
+  width: 15%;
+}
+
+.tableCellForPersonalNote:nth-child(3) {
+  width: 15%;
+}
+
+.tableCellForPersonalNote:nth-child(4) {
+  width: 50%;
 }
 
 .tableCell:first-child {
