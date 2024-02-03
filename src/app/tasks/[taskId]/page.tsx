@@ -118,12 +118,14 @@ const Page = () => {
         {personalNotesData && taskData && (
           <table className={styles.tableContainerForPersonalNotes}>
             <thead>
-              <tr>
-                <th className={styles.tableHeader}>Name</th>
-                <th className={styles.tableHeader}>Type</th>
-                <th className={styles.tableHeader}>Created On</th>
-                <th className={styles.tableHeader}>Description</th>
-              </tr>
+              {personalNotesData.length == 0 ? 'Create new Personal Notes using the Add Personal Note button' :
+                <tr>
+                  <th className={styles.tableHeader}>Name</th>
+                  <th className={styles.tableHeader}>Type</th>
+                  <th className={styles.tableHeader}>Created On</th>
+                  <th className={styles.tableHeader}>Description</th>
+                </tr>
+              }
             </thead>
             <tbody>
               {!personalNotesIsLoading &&

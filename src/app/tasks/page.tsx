@@ -27,6 +27,12 @@ const Page = () => {
     mutate()
   }
 
+  const handleSendEmail = (taskId: number | undefined) => {
+    // This is a mocked handler.
+    // Replace this with actual logic to send email notification
+    console.log(`Send email notification for task with ID: ${taskId}`);
+  }
+
   if (!isLoaded || !userId) {
     return null
   }
@@ -45,6 +51,7 @@ const Page = () => {
                 <th className={styles.tableHeader}>Type</th>
                 <th className={styles.tableHeader}>Status</th>
                 <th className={styles.tableHeader}>Correspondence Email</th>
+                <th className={styles.tableHeader}>Notification</th>
               </tr>
             }            
           </thead>
@@ -60,12 +67,14 @@ const Page = () => {
                   <td className={styles.tableCell}>{item.type}</td>
                   <td className={styles.tableCell}>{item.status}</td>
                   <td className={styles.tableCell}>{item.correspondenceEmailAddress}</td>
+                  <td className={styles.tableCell}>
+                    <button className={styles.sendNotificationButton} onClick={() => handleSendEmail(item.id)}>Send Email Notification</button>
+                  </td> {/* New column */}
                 </tr>
             ))}
           </tbody>
         </table>
       </SpinUntilLoaded>
-  
       {isModalOpen && <TaskCreationModal closeModal={closeModal} />}
     </div>
   )

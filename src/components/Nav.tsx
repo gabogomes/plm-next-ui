@@ -18,9 +18,6 @@ const Nav = () => {
           <Link href='/tasks'>Tasks</Link>
         </div>
         <div className='lg:flex-1'>
-          <Link href='/alarms'>Alarms and Notifications</Link>
-        </div>
-        <div className='lg:flex-1'>
           <Link href='/timer'>Timer</Link>
         </div>
         {

@@ -11,6 +11,16 @@
   right: 50px;
 }
 
+.sendNotificationButton {
+  background-color: gray;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
 .addPersonalNoteButton {
   background-color: blue;
   color: white;

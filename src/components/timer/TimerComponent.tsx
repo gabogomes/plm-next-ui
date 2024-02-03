@@ -35,16 +35,30 @@ const CountdownTimer = () => {
           setMinutes(59)
           setSeconds(59)
           setMilliseconds(99)
-        }
+        } 
       }, 10)
     }
 
     if (hours === 0 && minutes === 0 && seconds === 0 && milliseconds === 1) {
-      setShowEndScreen({ ...showEndScreen, show: true })
+      setShowEndScreen((prev) => ({
+        ...prev,
+        message: `Time is Up! The clock stopped at ${getCurrentTime()}`,
+        show: true
+      }))
       resetTimer()
     }
     return () => clearInterval(interval)
   }, [milliseconds, seconds, minutes, hours, isRunning, showEndScreen])
+
+  const getCurrentTime = (): string => {
+    const currentTime = new Date()
+    const options: Intl.DateTimeFormatOptions = {
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric'
+    }
+    return currentTime.toLocaleTimeString(undefined, options)
+  }
 
   function resetTimer() {
     setIsRunning(false)
@@ -90,7 +104,7 @@ const CountdownTimer = () => {
   return (
     <div>
       {showEndScreen.show && (
-        <h1 className="title text-light">{showEndScreen.message}</h1>
+        <h1 className="title text-light" style={{ fontSize: '24px' }}>{showEndScreen.message}</h1>
       )}
       <TimerBox
         milliseconds={milliseconds}
