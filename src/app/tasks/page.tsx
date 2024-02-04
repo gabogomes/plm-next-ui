@@ -1,4 +1,5 @@
 'use client'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import Link from 'next/link'
 import { useState } from 'react'
 import { SWRResponse } from 'swr'
@@ -13,6 +14,7 @@ import styles from '../../../styles/TasksPage.module.css'
 
 const Page = () => {
   const { isLoaded, userId, sessionId } = useAuth()
+  const [emailResponseMessage, setEmailResponseMessage] = useState<AxiosResponse | null>(null)
   const { data: taskData = { items: [] }, error: taskError, isLoading: taskIsLoading, mutate } =
     useSwr(`/api/tasks`) as SWRResponse<any, any, boolean>
 
@@ -27,11 +29,16 @@ const Page = () => {
     mutate()
   }
 
-  const handleSendEmail = (taskId: number | undefined) => {
-    // This is a mocked handler.
-    // Replace this with actual logic to send email notification
-    console.log(`Send email notification for task with ID: ${taskId}`);
-  }
+  const handleSendEmail = async (taskId: number | undefined) => {
+    try {
+      const response = await axios.post(`/api/tasks/${taskId}/alarms`);
+      setEmailResponseMessage(response);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        const axiosError = error as AxiosError;
+      }
+    }
+  };
 
   if (!isLoaded || !userId) {
     return null
@@ -39,6 +46,11 @@ const Page = () => {
 
   return (
     <div>
+      {emailResponseMessage && (
+        <h1 className="title text-light" style={{ fontSize: '20px', color: 'green' }}>
+          {emailResponseMessage.data}
+        </h1>
+      )}
       <button className={styles.addTaskButton} onClick={openModal}>
         Add Task
       </button>
