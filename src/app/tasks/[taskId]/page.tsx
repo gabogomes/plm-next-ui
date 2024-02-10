@@ -114,7 +114,7 @@ const Page = () => {
         </SpinUntilLoaded>
       </div>
       {isCreatePersonalNoteModalOpen && <PersonalNoteCreateModal closeModal={closeCreatePersonalNoteModal} taskId={taskId as number} />}
-      <div style={{ position: 'absolute', top: '700px' }}>
+      <div style={{ position: 'absolute', top: '800px' }}>
         {personalNotesData && taskData && (
           <table className={styles.tableContainerForPersonalNotes}>
             <thead>
